@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Code PattarAI Software Center</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #ab1a8e 100%); /*#ab1a8e; #764ba2*/
+      margin: 0;
+      padding: 0;
+      color: #333;
+      min-height: 100vh;
+    }
+    
+    header {
+      /*background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.98) 100%);*/
+	  background: white;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      padding: 40px 20px 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      animation: fadeInHeader 1.2s ease-out;
+      border-bottom: 3px solid transparent;
+      border-image: linear-gradient(90deg, #667eea, #764ba2);
+      border-image-slice: 1;
+    }
+    
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+    }
+    
+    .logo-container {
+      position: relative;
+    }
+    
+    header img {
+      width: 90px;
+      height: auto;
+      animation: rotateLogo 5s ease-in-out 0.4s;
+      /*filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));*/
+      transition: transform 0.3s ease;
+    }
+    
+    header img:hover {
+      transform: scale(1.1);
+    }
+    
+
+    
+    @keyframes rotateLogo {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .text-content {
+      text-align: left;
+    }
+    
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 2.8em;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+      animation: slideInRight 0.8s ease-out 0.3s both;
+    }
+    
+    .tagline {
+      font-size: 1.15em;
+      color: #666;
+      font-weight: 400;
+      animation: slideInRight 0.8s ease-out 0.5s both;
+    }
+    
+    .tagline-highlight {
+      color: #764ba2;
+      font-weight: 600;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes fadeInHeader {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 200px 20px 40px;
+    }
+    
+    .project {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    
+    .project h2 {
+      margin: 0 0 15px 0;
+      color: #667eea;
+      font-size: 1.8em;
+      font-weight: 600;
+    }
+    
+    .project p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .downloads a {
+      display: inline-block;
+      margin-right: 15px;
+      margin-top: 10px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+    }
+    
+    .downloads a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none; 
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content {
+      background: white;
+      margin: 15% auto;
+      padding: 30px 40px;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+      animation: slideDown 0.4s ease;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    
+    .modal-content h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+    }
+
+    .close {
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+      color: #888;
+      transition: color 0.3s ease;
+    }
+    
+    .close:hover {
+      color: #667eea;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .text-content {
+        text-align: center;
+      }
+      
+      h1 {
+        font-size: 2em;
+      }
+      
+      .tagline {
+        font-size: 1em;
+      }
+      
+      .container {
+        padding-top: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="logo.png" alt="Home Code AI Logo" />
+      </div>
+      <div class="text-content">
+        <h1>Code PattarAI</h1>
+        <p class="tagline">Software Center: <span class="tagline-highlight">Download & explore</span> our latest apps</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="project">
+      <h2>BadminCAB</h2>
+      <p>A desktop application for Badminton court allocation board. Available for Windows and Mac.</p>
+      <div class="downloads">
+        <a href="https://1drv.ms/f/c/6f0bda9e4e9ec264/IgALgqOCi3ieRKK3CBsldAAXASTnr6jasq25aoM4649S8KI?e=Qsaybv">Download for Windows</a>
+        <a onclick="showComingSoon()">Download for Mac</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h2>BadminCAB Mobile</h2>
+      <p>Mobile apps for Android and iOS. Play Store and App Store entries coming soon. Download here in the meantime.</p>
+      <div class="downloads">
+        <a href="https://1drv.ms/f/c/6f0bda9e4e9ec264/IgBmICV8yHqCS5ZVX2IAbC1LAViK_zcEBdmZwvvD1wxrhTU?e=4caaJ0">Download for Android</a>
+        <a onclick="showComingSoon()">Download for iOS</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h2>5 Cards Jay</h2>
+      <p>A web-based online/offline scoring and game rules sheet for 5 Cards Jay – a fun game for 2 to 16 players using packs of cards.</p>
+      <div class="downloads">
+        <a href="https://skaihomelab.github.io/5cardsJay/">Open Web App</a>
+        <a href="https://1drv.ms/u/c/6f0bda9e4e9ec264/IQA0j0XXFeR2TJbflLO3RCuMAZQJVAbIQmFzKE7pAYWm54k?e=G8qEAU">Download Offline App</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h2>5 Cards Jay Mobile App</h2>
+      <p>Mobile apps for Android and iOS. Play Store and App Store entries coming soon. Download here in the meantime.</p>
+      <div class="downloads">
+        <a href="https://1drv.ms/f/c/6f0bda9e4e9ec264/IgBV8EWv2yN3QoL2SbCEgPsBASRT78iimgATr5FW-1cXR3A?e=oYzHvj">Download for Android</a>
+        <a onclick="showComingSoon()">Download for iOS</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coming Soon Modal -->
+  <div id="comingSoonModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Coming Soon</h2>
+      <p>This feature will be available shortly. Stay tuned!</p>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("comingSoonModal");
+    const closeBtn = document.querySelector(".close");
+
+    function showComingSoon() {
+      modal.style.display = "block";
+    }
+
+    closeBtn.onclick = () => modal.style.display = "none";
+
+    window.onclick = (event) => {
+      if (event.target === modal) modal.style.display = "none";
+    };
+  </script>
+</body>
+</html>
